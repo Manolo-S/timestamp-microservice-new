@@ -8,21 +8,22 @@ var months = {0: "January", 1: "February", 2: "March", 3: "April",
 
 function timestampService(req, res){
 	var timestamp = req.params.id;
-	if (typeof(Number(timestamp)) === Number && timestamp.slice(0,1) in [0,1,2,3,4,5,6,7,8,9]){
-		var unixTime = timestamp;
+	if (!(isNaN(Number(timestamp)))){
+		var unixDate = timestamp;
 		var date = new Date(1000*timestamp);
 		var year = date.getFullYear();
 		var month = months[String(date.getMonth())];
 		var day = date.getDate();
 		var naturalDate = String(month + ' ' + day + ', ' + year);
 	} else if (String(new Date(timestamp)).slice(25,28) === 'GMT'){
-	    var unixTime = Date.parse(timestamp)/1000;
+	    var unixDate = Date.parse(timestamp)/1000;
 	    var naturalDate = timestamp;
 	} else {
 		res.setHeader('Content-Type', 'text/html');
     	res.send('<html><head><title>Timestamp Microservice</title></head><body><p>{"unix": null, "natural": null}</p></body></html>');
+    	return;
 	}
-	var unixAndNaturalTime = JSON.stringify({"unix": unixTime, "natural": naturalDate});
+	var unixAndNaturalTime = JSON.stringify({"unix": unixDate, "natural": naturalDate});
 	res.setHeader('Content-Type', 'text/html');
     res.send('<html><head><title>Timestamp Microservice</title></head><body><p>' +  unixAndNaturalTime + '</p></body></html>');
 }
