@@ -8,7 +8,7 @@ var months = {0: "January", 1: "February", 2: "March", 3: "April",
 
 function timestampService(req, res){
 	var timestamp = req.params.id;
-	if (new Date(timestamp) && timestamp.slice(0,1) in [0,1,2,3,4,5,6,7,8,9]){
+	if (typeof(Number(timestamp)) === 'number'){
 		var unixTime = timestamp;
 		var date = new Date(1000*timestamp);
 		var year = date.getFullYear();
