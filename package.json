@@ -1,0 +1,14 @@
+{
+  "name": "timestamp-microservice",
+  "version": "0.0.1",
+  "description": "UNIX timestamp microservice",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Manolo S",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.4"    
+  }
+}
