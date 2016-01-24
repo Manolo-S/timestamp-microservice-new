@@ -15,10 +15,13 @@ function timestampService(req, res){
 		var month = months[String(date.getMonth())];
 		var day = date.getDate();
 		var naturalDate = String(month + ' ' + day + ', ' + year);
-	} else {
+	} else if (String(new Date(timestamp)).slice(25,28) === 'GMT'){
 	    var unixTime = Date.parse(timestamp)/1000;
 	    var naturalDate = timestamp;
-	} 
+	} else {
+		res.setHeader('Content-Type', 'text/html');
+    	res.send('<html><head><title>Timestamp Microservice</title></head><body><p>{"unix": null, "natural": null}</p></body></html>');
+	}
 	var unixAndNaturalTime = JSON.stringify({"unix": unixTime, "natural": naturalDate});
 	res.setHeader('Content-Type', 'text/html');
     res.send('<html><head><title>Timestamp Microservice</title></head><body><p>' +  unixAndNaturalTime + '</p></body></html>');
